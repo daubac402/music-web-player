@@ -200,7 +200,7 @@
                 if ($file != '.' && $file != '..') {
                     $index++;
                     $filename = utf8_encode($file);
-                    echo ('<option value="' . $index . '">' . urlencode($filename) . '</option>');
+                    echo ('<option value="' . $index . '">' . str_replace('+', '%20', urlencode($filename)) . '</option>');
                 }
             }
             closedir($dh);
