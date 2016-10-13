@@ -67,6 +67,9 @@
         opacity: 0.9;
         filter: alpha(opacity=90); /* For IE8 and earlier */
     }
+    audio#audio {
+        width: 100%;
+    }
 </style>
 
 <script src="JS/DOM.js"></script>
@@ -185,7 +188,7 @@
 <script src="JS/music_controller.js"></script>
 <!-- <div class="drop-zone">Drop zone! Drop your music files here.</div> -->
 <input type="hidden" id="music_dir_url" value="Musics/">
-<button id="shuffle">Shuffle</button>
+<button id="shuffle">Shuffle(Trộn bài hát)</button>
 <button id="prev_song_in_shuffle_list">Previous in Shuffle list</button>
 <button id="next_song_in_shuffle_list">Next in Shuffle list</button>
 <br>
@@ -196,7 +199,8 @@
             while (($file = readdir($dh)) !== false) {
                 if ($file != '.' && $file != '..') {
                     $index++;
-                    echo ('<option value="' . $index . '">' . $file . '</option>');
+                    $filename = utf8_encode($file);
+                    echo ('<option value="' . $index . '">' . urlencode($filename) . '</option>');
                 }
             }
             closedir($dh);
