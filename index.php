@@ -70,6 +70,12 @@
     audio#audio {
         width: 100%;
     }
+    button {
+        height: 50px;
+    }
+    select {
+        height: 50px;   
+    }
 </style>
 
 <script src="JS/DOM.js"></script>
