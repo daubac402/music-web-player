@@ -11,6 +11,7 @@ $(function(){
 		localStorage.setItem('cookie_current_song_id_in_shuffle_list', JSON.stringify(current_song_id));
 		$('audio#audio').attr('src', $('#music_dir_url').val() + $(this).find(":selected").text());
 	});
+	$('#list_music_combo_box').trigger('change');
 
 	// shuffle song and save in Cookie
 	$('button#shuffle').click(function(e) {
