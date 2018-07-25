@@ -9,6 +9,7 @@
 <meta charset="UTF-8" >
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
 <style>
     * {
         font-family: Verdana,sans-serif;
@@ -73,8 +74,19 @@
     button {
         height: 50px;
     }
-    select {
-        height: 50px;   
+    #list_music_combo_box {
+        width: 100%;
+        height: 50px;
+    }
+    .main_visual {
+        position: relative;
+    }
+    #albumcover {
+        width: 270px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 </style>
 
@@ -100,6 +112,7 @@
             var files = event.dataTransfer.files; // file list object
             for(i=0; f = files[i]; i++) {
                 $(this).html('Playing: ' + f.name);
+                $('#google_search_keyword').val(f.name).trigger('change');
                 
                 var reader = new FileReader();
                 reader.onload = function(e) {
@@ -131,9 +144,9 @@
     //--------------------------------------------------------------------------------
     var EASING              = EasingFunctions.easeInCubic;
     var BARS_COUNT          = 128;
-    var VISIBLE_PART        = 0.7; // [0, 1]
+    var VISIBLE_PART        = 0.67; // [0, 1]
     var BAR_HEIGHT          = 50;
-    var RING_RADIUS         = 150;
+    var RING_RADIUS         = 200;
     var BAR_DIRECTION       = 1; // 1 -> outter, -1 = inner
     var ARC                 = 180; // [1, 180]
     //--------------------------------------------------------------------------------
@@ -191,12 +204,17 @@
 
 <body>
 
+<script src="JS/google_search_controller.js"></script>
 <script src="JS/music_controller.js"></script>
-<!-- <div class="drop-zone">Drop zone! Drop your music files here.</div> -->
+<div class="drop-zone">Drop zone! Drop your music files here.</div>
 <input type="hidden" id="music_dir_url" value="Musics/">
-<button id="shuffle">Shuffle(Trộn bài hát)</button>
-<button id="prev_song_in_shuffle_list">Previous in Shuffle list</button>
-<button id="next_song_in_shuffle_list">Next in Shuffle list</button>
+<input type="hidden" id="google_search_keyword" value="">
+<div>
+    <button id="shuffle">Shuffle</button>
+    <button id="prev_song_in_shuffle_list">Previous in Shuffle list</button>
+    <button id="next_song_in_shuffle_list">Next in Shuffle list</button> 
+</div>
+
 <br>
 <select id="list_music_combo_box">
     <?php
@@ -215,9 +233,11 @@
 </select>
 
 <audio src="" id="audio" controls preload autoplay></audio>
-<ul id="left_channel" class="bars"></ul>
-<ul id="right_channel" class="bars"></ul>
-<img id="albumcover" src="https://www.google.co.jp/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+<div class="main_visual">
+    <ul id="left_channel" class="bars"></ul>
+    <ul id="right_channel" class="bars"></ul>
+    <img id="albumcover" src="https://www.google.co.jp/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+</div>
 
 </body>
 </html>
